@@ -13,8 +13,6 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "baseHref": "/weather/",
-            "outputPath":"dist/browser",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
