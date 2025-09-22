@@ -1,24 +1,63 @@
-.form {
-  margin-top: 20vh;
+.container {
+  max-width: 600px;
+  margin: 5vh auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search-card {
+  padding: 1rem;
+}
+
+.form {
+  display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  align-items: center;
 }
 
-.resultado{
-  text-align: center;
+.input-full {
+  flex: 1;
 }
 
-.loading {
+.loading-card, .error-card, .resultado-card {
   text-align: center;
+  padding: 1.5rem;
+}
+
+.loading-card p {
+  margin-top: 1rem;
   font-weight: bold;
   color: #1976d2;
 }
 
-.error {
-  text-align: center;
+.error-card {
   color: red;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.resultado-card {
+  background: linear-gradient(135deg, #bbdefb, #e3f2fd);
+}
+
+.resultado-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .8rem;
+  padding-top: 1rem;
+}
+
+.weather-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.dados-clima p {
+  margin: .2rem 0;
+  font-size: 1rem;
 }

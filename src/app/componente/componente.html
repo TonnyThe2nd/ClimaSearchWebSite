@@ -1,29 +1,46 @@
+<div class="container">
+  <mat-card class="search-card">
+    <mat-card-title>Previsão do Tempo</mat-card-title>
+    <mat-card-content>
+      <div class="form">
+        <mat-form-field appearance="outline" class="input-full">
+          <mat-label>Digite a cidade</mat-label>
+          <input matInput [(ngModel)]="local" placeholder="Ex: São Paulo">
+        </mat-form-field>
 
-<div class="form">
-  <mat-form-field appearance="fill">
-    <mat-label>Digite a cidade</mat-label>
-    <input matInput [(ngModel)]="local" placeholder="Ex: São Paulo">
-  </mat-form-field>
+        <button mat-raised-button color="primary" (click)="pesquisarLocal()">
+          Pesquisar
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-  <button mat-raised-button (click)="pesquisarLocal()">Pesquisar</button>
+  <mat-card *ngIf="loading" class="loading-card">
+    <mat-progress-spinner mode="indeterminate" diameter="50" color="primary"></mat-progress-spinner>
+    <p>Carregando dados do clima...</p>
+  </mat-card>
+
+  <mat-card *ngIf="erro" class="error-card">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <p>{{ erro }}</p>
+  </mat-card>
+
+  <mat-card *ngIf="dados" class="resultado-card">
+    <mat-card-header>
+      <mat-card-title>{{ dados.name }}</mat-card-title>
+      <mat-card-subtitle>{{ dados.weather[0].description | titlecase }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="resultado-content">
+      <img [src]="getIconUrl(dados.weather[0].icon)" [alt]="dados.weather[0].description" class="weather-icon">
+      <div class="dados-clima">
+        <p><strong>{{ dados.main.temp }}°C</strong></p>
+        <p>Máx: {{ dados.main.temp_max }}°C | Mín: {{ dados.main.temp_min }}°C</p>
+        <p>Umidade: {{ dados.main.humidity }}%</p>
+        <p>Vento: {{ dados.wind.speed }} m/s</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <app-map [localPesquisado]="local"></app-map>
 </div>
-
-<div *ngIf="loading" class="loading">
-  Carregando dados do clima...
-</div>
-
-<div *ngIf="erro" class="error">
-  {{ erro }}
-</div>
-
-<div *ngIf="dados" class="resultado">
-  <h2>{{ dados.name }}</h2>
-  <img [src]="getIconUrl(dados.weather[0].icon)" [alt]="dados.weather[0].description">
-  <p>{{ dados.weather[0].description | titlecase }}</p>
-  <p>Temperatura: {{ dados.main.temp }}°C</p>
-  <p>Máx: {{ dados.main.temp_max }}°C | Mín: {{ dados.main.temp_min }}°C</p>
-  <p>Umidade: {{ dados.main.humidity }}%</p>
-  <p>Vento: {{ dados.wind.speed }} m/s</p>
-</div>
-
-<app-map [localPesquisado]="local"></app-map>
