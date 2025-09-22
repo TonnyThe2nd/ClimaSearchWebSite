@@ -19,9 +19,9 @@ export class Map implements AfterViewInit, OnDestroy, OnChanges {
   private circuloAtual: any = null;
   private destroy$ = new Subject<void>();
   private pesquisaSubject = new Subject<string>();
-  
+
   @Input() localPesquisado: string = '';
-  
+
   constructor(@Inject(PLATFORM_ID) public platformId: Object) {
     this.configurarDebounce();
   }
@@ -32,11 +32,11 @@ export class Map implements AfterViewInit, OnDestroy, OnChanges {
 
   private configurarDebounce() {
     this.pesquisaSubject.pipe(
-      debounceTime(800), 
+      debounceTime(800),
       distinctUntilChanged(),
       takeUntil(this.destroy$)
     ).subscribe(local => {
-      if (local && local.length > 2) { 
+      if (local && local.length > 2) {
         this.buscarELocalizarNoMapa(local);
       }
     });
@@ -45,7 +45,7 @@ export class Map implements AfterViewInit, OnDestroy, OnChanges {
   async ngAfterViewInit() {
     if (this.isBrowser) {
       this.L = await import('leaflet');
-      
+
       delete (this.L.Icon.Default.prototype as any)._getIconUrl;
       this.L.Icon.Default.mergeOptions({
         iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
@@ -60,7 +60,7 @@ export class Map implements AfterViewInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['localPesquisado'] && this.isBrowser && this.L && this.map) {
       const novoLocal = changes['localPesquisado'].currentValue;
-      
+
       if (novoLocal) {
         this.pesquisaSubject.next(novoLocal);
       } else {
@@ -72,6 +72,13 @@ export class Map implements AfterViewInit, OnDestroy, OnChanges {
 
   private initializeMap() {
     if (!this.L) return;
+
+    delete (this.L.Icon.Default.prototype as any)._getIconUrl;
+    this.L.Icon.Default.mergeOptions({
+      iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+      iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    });
 
     this.map = this.L.map('map').setView([-23.5505, -46.6333], 13);
 
@@ -90,7 +97,7 @@ export class Map implements AfterViewInit, OnDestroy, OnChanges {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      
+
       if (data.length > 0) {
         const loc = data[0];
         const lat = parseFloat(loc.lat);
