@@ -18,17 +18,7 @@ import { Map } from '../map/map';
   selector: 'app-componente',
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    // Material
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    // seu mapa
-    Map
+    CommonModule,FormsModule,MatFormFieldModule,MatButtonModule,MatCardModule,MatProgressSpinnerModule,MatIconModule,Map
   ],
   templateUrl: './componente.html',
   styleUrls: ['./componente.css']
@@ -68,7 +58,7 @@ export class Componente {
         this.dados = res;
       },
       error: (err) => {
-        this.erro = "Cidade não encontrada ou erro na API: " + err.Message;
+        this.erro = "Cidade não encontrada: " + err.Message;
         this.loading = false;
       }
     });
