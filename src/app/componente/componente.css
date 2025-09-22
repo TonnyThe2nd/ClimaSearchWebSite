@@ -1,0 +1,24 @@
+.form {
+  margin-top: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.resultado{
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}

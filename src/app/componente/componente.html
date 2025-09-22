@@ -1,0 +1,29 @@
+
+<div class="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Digite a cidade</mat-label>
+    <input matInput [(ngModel)]="local" placeholder="Ex: São Paulo">
+  </mat-form-field>
+
+  <button mat-raised-button (click)="pesquisarLocal()">Pesquisar</button>
+</div>
+
+<div *ngIf="loading" class="loading">
+  Carregando dados do clima...
+</div>
+
+<div *ngIf="erro" class="error">
+  {{ erro }}
+</div>
+
+<div *ngIf="dados" class="resultado">
+  <h2>{{ dados.name }}</h2>
+  <img [src]="getIconUrl(dados.weather[0].icon)" [alt]="dados.weather[0].description">
+  <p>{{ dados.weather[0].description | titlecase }}</p>
+  <p>Temperatura: {{ dados.main.temp }}°C</p>
+  <p>Máx: {{ dados.main.temp_max }}°C | Mín: {{ dados.main.temp_min }}°C</p>
+  <p>Umidade: {{ dados.main.humidity }}%</p>
+  <p>Vento: {{ dados.wind.speed }} m/s</p>
+</div>
+
+<app-map [localPesquisado]="local"></app-map>

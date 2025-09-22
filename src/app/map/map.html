@@ -1,0 +1,13 @@
+<div class="map-container">
+  <!-- Mostra qual local está sendo exibido no mapa -->
+  <div class="search-info" *ngIf="localPesquisado">
+    <p>Exibindo: <strong>{{ localPesquisado }}</strong></p>
+  </div>
+  
+  <div id="map" class="map" *ngIf="isBrowser; else serverView"></div>
+  <ng-template #serverView>
+    <div class="map-placeholder">
+      <p>Mapa carregando...</p>
+    </div>
+  </ng-template>
+</div>
